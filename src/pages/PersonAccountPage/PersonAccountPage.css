@@ -1,0 +1,90 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.left-column {
+    width: 25%;
+    margin-left: 5%;
+}
+
+.right-column {
+    width: 100%;
+    margin-right: 5%;
+}
+
+.first-row, .second-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.first-row, .second-row, .third-row {
+    margin: 2.5% 0;
+}
+
+.first-row {
+    align-items: flex-start;
+}
+
+.next-train {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-groups {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.7rem;
+    margin-right: auto;
+}
+
+.my-groups-table th{
+    font-size: 14px;
+    width: 30%;
+}
+
+.my-groups-row {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    color: #373874;
+}
+
+.next-train-name, .my-groups-header {
+    margin: .7rem 0 2.5% 5%;
+}
+
+.next-train-row {
+    display: flex;
+    flex-direction: row;
+    margin: 2.5% 5%;
+}
+
+.next-train-title {
+    margin-right: auto;
+    color: #373874;
+}
+
+.next-train-value {
+    color: #1CC236;
+}
+
+.next-train h3, .my-groups h3 {
+    font-size: 14px;
+    color: #F64C72;
+}
+
+.next-train h4 {
+    font-size: 12px;
+}
+
+.next-train-button {
+    margin: 2.5% auto;
+}

@@ -1,0 +1,28 @@
+.recommendations {
+    width: 40%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    padding-top: 0.7rem;
+}
+
+.title {
+    font-size: 14px;
+    color: #373874;
+    text-align: center;
+}
+
+.rec-name {
+    font-size: 12px;
+    color: #F64C72;
+    margin: 2.5% 5%;
+}
+
+.rec-text {
+    font-size: 12px;
+    height: 8rem;
+    text-align: center;
+    color: #373874;
+    font-weight: bold;
+    word-wrap: break-word;
+    margin: 2.5% 5%;
+}

@@ -1,0 +1,83 @@
+.coach-account-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.coach-first-row, .coach-second-row, .coach-third-row, .coach-forth-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 2.5% 0;
+}
+
+.money-history, .create-train-form {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.7rem;
+    margin-right: auto;
+}
+
+.input-train {
+    height: 2rem;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border-color: rgba(169, 169, 169, 0.35);
+    margin-bottom: 0.5vw;
+    font-weight: bold;
+    font-size: 12px;
+    padding-left: 0.5rem;
+}
+
+.input-train-title {
+    font-size: 14px;
+    margin-left: 5%;
+    color: #373874;
+}
+
+.money-history-table th{
+    font-size: 14px;
+    width: 30%;
+}
+
+.coach-money-name, .money-history-header {
+    margin: .7rem 0 2.5% 5%;
+}
+
+.coach-money, .person-group-list {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.block-title {
+    margin: .7rem 0 2.5% 5%;
+    font-size: 14px;
+    color: #F64C72;
+}
+
+.coach-money-count {
+    margin: 5% 0;
+    text-align: center;
+}
+
+.coach-money h3, .money-history h3 {
+    font-size: 14px;
+    color: #F64C72;
+}
+
+.coach-button {
+    margin: 2.5% auto;
+}
+
+.create-group {
+    width: 50%;
+    margin: 2.5% auto 0;
+}
