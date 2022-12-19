@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./AuthPage.css";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 class AuthPage extends Component {
     constructor(props) {
@@ -51,7 +52,7 @@ class AuthPage extends Component {
                     </form>
                     <div className="create">
                         <h3 className="create__text">Нет аккаунта?</h3>
-                        <a className="create__link" href="/#">Создать аккаунт</a>
+                        <Link className="create__link" to="/RegisterPage">Создать аккаунт</Link>
                     </div>
                 </div>
             </div>

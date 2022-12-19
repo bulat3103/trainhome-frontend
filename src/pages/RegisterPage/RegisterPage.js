@@ -212,6 +212,6 @@ class RegisterPage extends Component {
         );
     }
 }
-
+//TODO не понял как понять что регистрация прошла успешно, когда ввожу в поле email авто заполняются другие поля
 export default RegisterPage
 
