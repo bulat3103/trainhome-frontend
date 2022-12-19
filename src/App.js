@@ -9,6 +9,6 @@ import MessagesPage from "./pages/MessagesPage/MessagesPage";
 
 export function App() {
     return (
-        <CoachAccountPage/>
+        <MessagesPage/>
     );
 }

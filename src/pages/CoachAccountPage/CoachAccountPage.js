@@ -17,13 +17,13 @@ class CoachAccountPage extends Component {
             createTrainCountTrains: 0,
             groups: [],
             transactions: [],
-            value: "Йога"
+            value: "Йога",
+            groupPeople: []
         }
         this.handleInput = this.handleInput.bind(this);
         this.handleClickMoney = this.handleClickMoney.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.submitCreateTrain = this.submitCreateTrain.bind(this);
-        this.loadGroupsPeople = this.loadGroupsPeople(this);
     }
 
     componentDidMount() {
@@ -90,11 +90,11 @@ class CoachAccountPage extends Component {
             sportSphereName: this.state.value,
             maxCount: this.state.createTrainCountPeople,
             trainsLeft: this.state.createTrainCountTrains
+        }, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+            }
         })
-    }
-
-    loadGroupsPeople(groupId) {
-
     }
 
     render() {
@@ -154,7 +154,13 @@ class CoachAccountPage extends Component {
                                     <tbody>
                                     {this.state.groups.map((group) =>
                                         <tr>
-                                            <td onClick={e => console.log(e.target.value)}>{group.id}</td>
+                                            <td onClick={() => axios.get(`http://localhost:9090/${group.id}`, {
+                                                headers: {
+                                                    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                                                }})
+                                                .then(res => this.setState({groupPeople: res.data.persons}))}>
+                                                {group.id}
+                                            </td>
                                             <td>{group.name}</td>
                                             <td>{group.trainsLeft}</td>
                                         </tr>
@@ -164,6 +170,9 @@ class CoachAccountPage extends Component {
                             </div>
                             <div className="person-group-list">
                                 <h3 className="block-title">Группа вторники</h3>
+                                {this.state.groupPeople.map((people) =>
+                                    <p>{people.name}</p>
+                                )}
                                 <div className="coach-button">
                                     <Button buttonStyle="btn--red"
                                             buttonSize="btn--wide">Удалить группу</Button>

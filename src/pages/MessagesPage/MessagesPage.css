@@ -32,3 +32,14 @@
     position: absolute;
     bottom: 0;
 }
+
+.message-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.message-row h3 {
+    font-size: 14px;
+    color: #373874;
+}
