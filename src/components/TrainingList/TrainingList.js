@@ -1,21 +1,25 @@
 import React, {Component} from "react";
 import "./TrainingList.css";
 import axios from "axios";
-import {Button} from "../Button";
 
 class TrainingList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            trains: []
+        };
     }
 
-    /*componentDidMount() {
-        axios.get('http://localhost:8080/calendar/list')
+    componentDidMount() {
+        axios.get("http://localhost:9090/trains/list", {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1ZTRjMjM3ZjRAZ21haWwuY29tIiwiZXhwIjoxNjcyNjA2ODAwfQ.hEqOxiwFHQWSiLgGSH6kRS475YakdO7tpoLRpAjhTIN5KJN5rVByXSi5_Wq9_M0rOOVoLZ0Wqnp-cywftImMMA'
+            }
+        })
             .then(res => {
-                const list = res.data;
-                this.setState({list});
+                this.setState({trains: res.data.trainings})
             })
-    }*/
+    }
 
     render() {
         return (
@@ -23,15 +27,16 @@ class TrainingList extends Component {
                 <div>
                     <h3 className="title-list">Ваши тренировки</h3>
                 </div>
-                <div className="train">
-                    <h3 className="train-date">Пт 19.10</h3>
-                    <h3 className="train-name">Занятие по йоге</h3>
-                    <h3 className="train-coach">Иванов Иван Иванович</h3>
-                    <h3 className="train-time">19.00-20.00</h3>
-                    <div className="train-zoom">
-                        <Button buttonStyle="btn--green">Zoom</Button>
+                {this.state.trains.map((train, idx) =>
+                    <div className="train">
+                        <h3 className="train-date">{train.trainingDate}</h3>
+                        <h3 className="train-name">{train.groupsDTO.name}</h3>
+                        <h3 className="train-coach">{train.personDTO.name}</h3>
+                        <div className="train-zoom">
+                            <a href={"#"}>Zoom</a>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         );
     }

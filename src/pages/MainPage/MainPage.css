@@ -1,0 +1,65 @@
+.hero {
+    height: 100vh;
+    background: url("/src/img/HeroBackground.png") center;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.hero__content {
+    color: white;
+    line-height: 1.25;
+}
+
+.hero__content h1 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+    font-size: 32px;
+}
+
+.opportunities {
+    display: flex;
+    color: white;
+}
+
+.client__opp, .coach__opp {
+    width: 50%;
+    padding: 3vw 0 3vw 5%;
+}
+
+.coach__opp {
+    background-color: #373874;
+}
+
+.client__opp {
+    background-color: #F64C72;
+}
+
+.coach__opp h2, .client__opp h2 {
+    font-size: 18px;
+    width: 50%;
+    padding-bottom: 1vw;
+}
+
+.coach__opp li, .client__opp li {
+    font-size: 12px;
+    padding-bottom: 1%;
+    width: 75%;
+}
+
+@media screen and (max-width: 768px) {
+    .hero__content h1 {
+        font-size: 25px;
+    }
+
+    .coach__opp h2, .client__opp h2 {
+        font-size: 15px;
+    }
+
+    .coach__opp li, .client__opp li {
+        font-size: 11px;
+    }
+}

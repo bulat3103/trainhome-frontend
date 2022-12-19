@@ -15,33 +15,21 @@ class PersonAccountPage extends Component {
             nextTrainName: "Занятие по йоге",
             nextTrainDate: "15.10.2022 19.00",
             nextTrainCoach: "Иванов Иван Иванович",
-            groups: []
+            groups: [],
+            trains: []
         }
     }
 
     componentDidMount() {
         axios.get("http://localhost:9090/groups/list", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwNDBkMGEwNmVAZ21haWwuY29tIiwiZXhwIjoxNjcyNjA2ODAwfQ.z2lDlJmDLKJ-xzkTXB2ruPUYJlCpAi7voNLBvwDnuUAuICH7Q_2qKkJ54m4N5LekgN19IDOAIfQ3vn-E3fdOBw'
+                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1ZTRjMjM3ZjRAZ21haWwuY29tIiwiZXhwIjoxNjcyNjA2ODAwfQ.hEqOxiwFHQWSiLgGSH6kRS475YakdO7tpoLRpAjhTIN5KJN5rVByXSi5_Wq9_M0rOOVoLZ0Wqnp-cywftImMMA'
             }
         })
             .then(res => {
                 this.setState({groups: res.data.groups});
-                console.log(res.data.groups);
             })
-
-        axios.get()
     }
-
-    /*
-    {this.state.group_list.map((group, idx) =>
-                                            <tr>
-                                                <td>{group.name}</td>
-                                                <td>{group.coach.name}</td>
-                                                <td>{group.trainsLeft}</td>
-                                            </tr>
-                                        )}
-     */
 
     render() {
         return (
@@ -52,6 +40,10 @@ class PersonAccountPage extends Component {
                         <img src={logo}/>
                     </div>
                     <div className="right-column">
+                        <div className="second-row">
+                            <Calendar/>
+                            <PersonRecommendations/>
+                        </div>
                         <div className="first-row">
                             <div className="my-groups">
                                 <h3 className="my-groups-header">Список ваших групп</h3>
@@ -74,25 +66,6 @@ class PersonAccountPage extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="next-train">
-                                <h3 className="next-train-name">{this.state.nextTrainName}</h3>
-                                <div className="next-train-row">
-                                    <h4 className="next-train-title">Дата</h4>
-                                    <h4 className="next-train-value">{this.state.nextTrainDate}</h4>
-                                </div>
-                                <div className="next-train-row">
-                                    <h4 className="next-train-title">Тренер</h4>
-                                    <h4 className="next-train-value">{this.state.nextTrainCoach}</h4>
-                                </div>
-                                <div className="next-train-button">
-                                    <Button className="next-train-button" buttonStyle="btn--green"
-                                            buttonSize="btn--wide">Подключиться</Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="second-row">
-                            <Calendar/>
-                            <PersonRecommendations/>
                         </div>
                         <div className="third-row">
                             <TrainingList/>

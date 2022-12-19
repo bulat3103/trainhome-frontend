@@ -1,0 +1,120 @@
+.register-block {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.choose {
+    margin-top: 5%;
+    display: flex;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.choose__coach, .choose__client {
+    font-size: 12px;
+    font-weight: bold;
+    color: #373874;
+    height: 3rem;
+    display: flex;
+    width: 50%;
+}
+
+.choose__coach, .choose__man {
+    border-radius: 10px 0 0 10px;
+}
+
+.choose__coach:hover, .choose__client:hover, .choose__man:hover, .choose__woman:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.choose__client, .choose__woman {
+    border-radius: 0 10px 10px 0;
+}
+
+.choose__coach h4, .choose__client h4 {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.choose__client.active, .choose__coach.active, .choose__man.active, .choose__woman.active {
+    box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    background-color: #E9E9E9;
+}
+
+.register-form {
+    margin-top: 2.5%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.form-row h4 {
+    width: 50%;
+    color: #373874;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 10%;
+}
+
+.form-row input {
+    width: 50%;
+    height: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border: none;
+    padding-left: 0.5rem;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgb(176, 175, 175);
+}
+
+.choose-sex {
+    display: flex;
+    width: 20%;
+    height: 2rem;
+    margin-left: auto;
+    margin-right: 0;
+    justify-content: space-around;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.choose__man, .choose__woman {
+    font-size: 12px;
+    font-weight: bold;
+    color: #373874;
+    display: flex;
+    width: 50%;
+}
+
+.choose__man h4, .choose__woman h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.submit {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1vw;
+}
+
+.form-row.nonactive {
+    display: none;
+}
+
+.input-field.big {
+    height: 5rem;
+}
