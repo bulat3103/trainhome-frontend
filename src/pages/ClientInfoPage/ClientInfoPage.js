@@ -18,9 +18,9 @@ class ClientInfoPage extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:9090/person", {
+        axios.get("http://localhost:9090/person/id", {
             params: {
-                email: this.props.email
+                id: localStorage.getItem("coachPersonInfoPageId")
             }
         })
             .then(res => {
@@ -43,7 +43,7 @@ class ClientInfoPage extends Component {
         axios.post("http://localhost:9090/calendar", {
             info: this.state.recom,
             date: this.state.date,
-            personId: this.props.id
+            personId: localStorage.getItem("coachPersonInfoPageId")
         }, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem("token")
@@ -77,11 +77,16 @@ class ClientInfoPage extends Component {
                 </div>
                 <Button onClick={this.sendMessage}>Отправить сообщение</Button>
                 <div className="write-recom">
-                    <input value={this.state.date} onChange={this.handleInput} name="date" className="login"
-                           type="text" placeholder="Введите дату..."/>
-                    <input value={this.state.recom} onChange={this.handleInput} name="recom" className="login"
+                    <input value={this.state.date} onChange={this.handleInput} name="date" className="info-page-input"
+                           type="date" placeholder="Введите дату..."/>
+                    <input value={this.state.recom} onChange={this.handleInput} name="recom" className="info-page-input"
                            type="text" placeholder="Введите рекомендацию..."/>
                     <Button onClick={this.writeSubmit}>Отправить</Button>
+                </div>
+                <div className="add-to-group">
+                    <input value={this.state.recom} onChange={this.handleInput} name="recom" className="info-page-input"
+                           type="text" placeholder="Введите id группы..."/>
+                    <Button onClick={this.writeSubmit}>Добавить</Button>
                 </div>
             </div>
         );

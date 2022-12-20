@@ -154,9 +154,9 @@ class CoachAccountPage extends Component {
                                     <tbody>
                                     {this.state.groups.map((group) =>
                                         <tr>
-                                            <td onClick={() => axios.get(`http://localhost:9090/${group.id}`, {
+                                            <td onClick={() => axios.get(`http://localhost:9090/groups/${group.id}`, {
                                                 headers: {
-                                                    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                                                    Authorization: 'Bearer ' + localStorage.getItem('token')
                                                 }})
                                                 .then(res => this.setState({groupPeople: res.data.persons}))}>
                                                 {group.id}
@@ -171,7 +171,10 @@ class CoachAccountPage extends Component {
                             <div className="person-group-list">
                                 <h3 className="block-title">Группа вторники</h3>
                                 {this.state.groupPeople.map((people) =>
-                                    <p>{people.name}</p>
+                                    <p onClick={() => {
+                                        localStorage.setItem("coachPersonInfoPageId", people.id);
+                                        window.location.href = "http://localhost:3000/Info"
+                                    }}>{people.name}</p>
                                 )}
                                 <div className="coach-button">
                                     <Button buttonStyle="btn--red"

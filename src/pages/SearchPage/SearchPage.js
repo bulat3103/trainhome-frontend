@@ -111,7 +111,7 @@ class SearchPage extends Component {
                             </div>
                         </div>
                         <div className="search-submit">
-                            <Button buttonStyle="btn--green" buttonSize="btn--wide" onClick={}>Применить</Button>
+                            <Button buttonStyle="btn--green" buttonSize="btn--wide" onClick={this.onSubmit}>Применить</Button>
                         </div>
                     </div>
                     {this.state.coaches.map((coach) =>
