@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import "./AuthPage.css";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {Button} from "../../components/Button";
 
 class AuthPage extends Component {
     constructor(props) {
@@ -26,30 +26,33 @@ class AuthPage extends Component {
         }
     }
 
-    async handleSubmit() {
-        const data = {
-            email: this.state.login,
-            password: this.state.password
-        }
-        axios.post("http://localhost:9090/auth/login", data)
+    handleSubmit() {
+        axios.post("http://localhost:9090/auth/login", {email: this.state.login, password: this.state.password})
             .then(res => {
-                localStorage.setItem("token", res.data)
-                console.log(res.data);
+                localStorage.removeItem("token")
+                localStorage.setItem("token", res.data.token)
+                if (res.data.role === "COACH") {
+                    window.location.href = "http://localhost:3000/CoachAccountPage"
+                } else {
+                    window.location.href = "http://localhost:3000/PersonAccountPage"
+                }
             })
     }
 
     render() {
         return (
             <div>
-                <Navbar/>
+                <div>
+                    <Link to={"/"}><Button>На главную</Button></Link>
+                </div>
                 <div className="auth-block">
-                    <form className="auth-form" onSubmit={this.handleSubmit}>
+                    <div className="auth-form">
                         <input value={this.state.login} onChange={this.handleInput} name="login" className="login"
                                type="text" placeholder="Введите email..."/>
                         <input value={this.state.password} onChange={this.handleInput} name="password"
                                className="password" type="password" placeholder="Введите пароль..."/>
-                        <input value="Войти" type="submit" className="auth-button"/>
-                    </form>
+                        <Button onClick={this.handleSubmit}>Войти</Button>
+                    </div>
                     <div className="create">
                         <h3 className="create__text">Нет аккаунта?</h3>
                         <Link className="create__link" to="/RegisterPage">Создать аккаунт</Link>

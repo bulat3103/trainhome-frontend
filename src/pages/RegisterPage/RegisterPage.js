@@ -4,6 +4,7 @@ import "./RegisterPage.css";
 import {Button} from "../../components/Button";
 import Multiselect from 'multiselect-react-dropdown';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 class RegisterPage extends Component {
     constructor(props) {
@@ -119,7 +120,7 @@ class RegisterPage extends Component {
     render() {
         return (
             <div>
-                <Navbar/>
+                <Link to={"/"}><Button>На главную</Button></Link>
                 <div className="register-block">
                     <div className="choose">
                         <div className={this.state.coach ? "choose__coach active" : "choose__coach"}
@@ -131,7 +132,7 @@ class RegisterPage extends Component {
                             <h4>Стать клиентом</h4>
                         </div>
                     </div>
-                    <form className="register-form">
+                    <div className="register-form">
                         <div className="form-row">
                             <h4>Как вас зовут?</h4>
                             <input value={this.state.name} name="name" className="input-field"
@@ -206,7 +207,7 @@ class RegisterPage extends Component {
                         <div className="submit">
                             <Button>Создать</Button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         );

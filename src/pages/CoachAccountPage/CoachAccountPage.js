@@ -29,7 +29,7 @@ class CoachAccountPage extends Component {
     componentDidMount() {
         axios.get("http://localhost:9090/groups/list", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(res => {
@@ -38,7 +38,7 @@ class CoachAccountPage extends Component {
 
         axios.get("http://localhost:9090/transaction/list", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(res => {
@@ -47,7 +47,7 @@ class CoachAccountPage extends Component {
 
         axios.get("http://localhost:9090/transaction", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(res => {
@@ -58,7 +58,7 @@ class CoachAccountPage extends Component {
     handleClickMoney() {
         axios.post("http://localhost:9090/transaction/pay", {date: new Date(), coachId: this.props.id, money: -1 * this.state.currentMoney}, {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(() => {
@@ -92,7 +92,7 @@ class CoachAccountPage extends Component {
             trainsLeft: this.state.createTrainCountTrains
         }, {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
     }

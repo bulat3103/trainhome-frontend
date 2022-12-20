@@ -1,33 +1,38 @@
 import React, {Component} from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./PersonAccountPage.css";
-import {Button} from "../../components/Button";
-import Calendar from "../../components/Calendar/Calendar";
-import PersonRecommendations from "../../components/PersonRecommendations/PersonRecommendations";
 import TrainingList from "../../components/TrainingList/TrainingList";
 import logo from "../../img/Icon.png";
 import axios from "axios";
+import PersonRecommendations from "../../components/PersonRecommendations/PersonRecommendations";
 
 class PersonAccountPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nextTrainName: "Занятие по йоге",
-            nextTrainDate: "15.10.2022 19.00",
-            nextTrainCoach: "Иванов Иван Иванович",
             groups: [],
-            trains: []
+            trains: [],
+            recom: []
         }
     }
 
     componentDidMount() {
         axios.get("http://localhost:9090/groups/list", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1ZTRjMjM3ZjRAZ21haWwuY29tIiwiZXhwIjoxNjcyNjA2ODAwfQ.hEqOxiwFHQWSiLgGSH6kRS475YakdO7tpoLRpAjhTIN5KJN5rVByXSi5_Wq9_M0rOOVoLZ0Wqnp-cywftImMMA'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(res => {
                 this.setState({groups: res.data.groups});
+            })
+
+        axios.get('http://localhost:9090/calendar/list', {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            }
+        })
+            .then(res => {
+                this.setState({recom: res.data.recommendations});
             })
     }
 
@@ -41,7 +46,6 @@ class PersonAccountPage extends Component {
                     </div>
                     <div className="right-column">
                         <div className="second-row">
-                            <Calendar/>
                             <PersonRecommendations/>
                         </div>
                         <div className="first-row">

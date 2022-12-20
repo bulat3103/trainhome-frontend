@@ -14,16 +14,11 @@
     margin-right: 5%;
 }
 
-.first-row, .second-row {
-    display: flex;
-    flex-direction: row;
-}
-
 .first-row, .second-row, .third-row {
     margin: 2.5% 0;
 }
 
-.first-row {
+.second-row {
     align-items: flex-start;
 }
 

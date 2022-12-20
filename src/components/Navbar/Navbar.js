@@ -28,7 +28,7 @@ class Navbar extends Component {
                 </ul>
                 <div className="navbar-button">
                     <Link to="/AuthPage" >
-                        <Button>Войти</Button>
+                        <Button>Кабинет</Button>
                     </Link>
                 </div>
             </nav>

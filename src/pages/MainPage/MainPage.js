@@ -1,15 +1,20 @@
 import React, {Component} from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import "./MainPage.css";
+import {Button} from "../../components/Button";
+import {Link} from "react-router-dom";
 
 class MainPage extends Component {
     render() {
         return (
             <div className="main-page">
-                <Navbar/>
                 <div className="hero">
                     <div className="hero__content">
                         <h1>Тренировки с мастерами своего дела из любой точки мира, где бы вы ни находились</h1>
+                        <div className="enter-button">
+                            <Link to="/AuthPage">
+                                <Button buttonSize="btn--wide">Войти</Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <div className="opportunities">
