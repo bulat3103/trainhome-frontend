@@ -19,20 +19,11 @@ class PersonAccountPage extends Component {
     componentDidMount() {
         axios.get("http://localhost:9090/groups/list", {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("token")
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
             .then(res => {
                 this.setState({groups: res.data.groups});
-            })
-
-        axios.get('http://localhost:9090/calendar/list', {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("token")
-            }
-        })
-            .then(res => {
-                this.setState({recom: res.data.recommendations});
             })
     }
 

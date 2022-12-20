@@ -29,8 +29,9 @@ class AuthPage extends Component {
     handleSubmit() {
         axios.post("http://localhost:9090/auth/login", {email: this.state.login, password: this.state.password})
             .then(res => {
-                localStorage.removeItem("token")
-                localStorage.setItem("token", res.data.token)
+                localStorage.removeItem('token')
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('role', res.data.role)
                 if (res.data.role === "COACH") {
                     window.location.href = "http://localhost:3000/CoachAccountPage"
                 } else {

@@ -57,6 +57,9 @@ class PersonRecommendations extends Component {
         this.setState({selectedDate: date});
         this.props.onChange(date);
         axios.get('http://localhost:9090/calendar/list', {
+            params: {
+                date: this.state.selectedDate
+            },
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem("token")
             }

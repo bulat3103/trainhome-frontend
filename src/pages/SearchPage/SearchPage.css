@@ -40,3 +40,46 @@
     margin-right: auto;
     margin-bottom: 2.5%;
 }
+
+.search-person {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-person-info {
+    font-size: 14px;
+    width: 30%;
+}
+
+.search-person-info-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.search-person-info-field h3 {
+    font-size: 14px;
+}
+.search-person-info-field-name {
+    color: #373874;
+}
+
+.search-person-info-field-value {
+    color: #F64C72;
+}
+
+.search-person-submit {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5%;
+}
+
+.search-person-pay {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.search-person-pay-price {
+    text-align: center;
+}
