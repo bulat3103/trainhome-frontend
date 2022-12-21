@@ -4,11 +4,20 @@
     width: 100%;
 }
 
-.coach-first-row, .coach-second-row, .coach-third-row, .coach-forth-row {
+.coach-second-row, .coach-third-row, .coach-forth-row, .row {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     margin: 2.5% 0;
+}
+
+.create-form {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.7rem;
 }
 
 .money-history, .create-train-form {
@@ -43,6 +52,12 @@
 .money-history-table th{
     font-size: 14px;
     width: 30%;
+}
+
+.money-history-table td, .my-groups-table td {
+    font-size: 14px;
+    width: 30%;
+    text-align: center;
 }
 
 .coach-money-name, .money-history-header {

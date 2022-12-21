@@ -8,6 +8,7 @@ import RegisterPage from "../../pages/RegisterPage/RegisterPage";
 import SearchPage from "../../pages/SearchPage/SearchPage";
 import React, {Component} from "react";
 import ClientInfoPage from "../../pages/ClientInfoPage/ClientInfoPage";
+import CoachInfoPage from "../../pages/CoachInfoPage/CoachInfoPage";
 
 class AppRouter extends Component {
     render() {
@@ -22,6 +23,7 @@ class AppRouter extends Component {
                     <Route path="/RegisterPage" element={<RegisterPage/>}/>
                     <Route path="/SearchPage" element={<SearchPage/>}/>
                     <Route path="/Info" element={<ClientInfoPage/>}/>
+                    <Route path="/CoachInfo" element={<CoachInfoPage/>}/>
                 </Routes>
             </BrowserRouter>
         )

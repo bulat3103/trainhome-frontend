@@ -21,8 +21,18 @@ class RegisterPage extends Component {
             sports: [],
             achieve: '',
             info: '',
-            options: [{name: 'Йога', id: 0}, {name: 'Аэробика', id: 1}, {name: 'Пилатес', id: 2}, {name: 'Стрип-дэнс', id: 3}, {name: 'Степпинг', id: 4}, {name: 'Гимнастика', id: 5},
-                {name: 'Цигун', id: 6}, {name: 'Тай-бо', id: 7}, {name: 'Сайклинг', id: 8}, {name: 'Боди-балет', id: 9}, {name: 'Ки-бо', id: 10}, {name: 'Тайчи', id: 11}, {name: 'Кунг-фу', id: 12}, {name: 'Каларипаятту', id: 13}],
+            prices: '',
+            options: [{name: 'Йога', id: 0}, {name: 'Аэробика', id: 1}, {name: 'Пилатес', id: 2}, {
+                name: 'Стрип-дэнс',
+                id: 3
+            }, {name: 'Степпинг', id: 4}, {name: 'Гимнастика', id: 5},
+                {name: 'Цигун', id: 6}, {name: 'Тай-бо', id: 7}, {name: 'Сайклинг', id: 8}, {
+                    name: 'Боди-балет',
+                    id: 9
+                }, {name: 'Ки-бо', id: 10}, {name: 'Тайчи', id: 11}, {name: 'Кунг-фу', id: 12}, {
+                    name: 'Каларипаятту',
+                    id: 13
+                }],
             selectedListItem: []
         }
         this.handleChooseCoach = this.handleChooseCoach.bind(this);
@@ -32,7 +42,7 @@ class RegisterPage extends Component {
         this.handleInput = this.handleInput.bind(this);
         this.onSelect = this.onSelect.bind(this);
         this.onRemove = this.onRemove.bind(this);
-        this.handleInputSport = this.handleInputSport.bind(this);
+        this.sendData = this.sendData.bind(this);
     }
 
     onSelect(selectedList, selectedItem) {
@@ -67,14 +77,6 @@ class RegisterPage extends Component {
         this.setState({sex: false});
     }
 
-    handleInputSport(e) {
-        let prices = []
-        switch (e.target.name) {
-            case '0':
-                prices.push({name: e.target.name, price: e.target.value})
-        }
-    }
-
     handleInput(e) {
         switch (e.target.name) {
             case 'name':
@@ -84,7 +86,7 @@ class RegisterPage extends Component {
                 this.setState({birthday: e.target.value});
                 break;
             case 'phone':
-                this.setState({phone: e.target.value});
+                this.setState({phoneNumber: e.target.value});
                 break;
             case 'email':
                 this.setState({email: e.target.value});
@@ -98,11 +100,20 @@ class RegisterPage extends Component {
             case 'info':
                 this.setState({info: e.target.value});
                 break;
+            case 'prices':
+                this.setState({prices: e.target.value})
         }
     }
 
-    /*sendData() {
-        const data = {
+    sendData() {
+        let role = ''
+        if (this.state.coach === true) {
+            role = 'ROLE_COACH'
+        } else {
+            role = 'ROLE_CLIENT'
+        }
+        console.log()
+        axios.post("http://localhost:9090/auth/register", {
             password: this.state.password,
             name: this.state.name,
             image: {hex: "no photo"},
@@ -112,10 +123,29 @@ class RegisterPage extends Component {
             sex: this.state.sex,
             achievements: this.state.achieve,
             info: this.state.info,
-
-        }
-        axios.post("http://localhost:8000/")
-    }*/
+            prices: this.state.prices.split(',')
+        }, {
+            params: {
+                role: role
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                let r = '';
+                if (role === "ROLE_COACH") {
+                    r = 'COACH'
+                } else {
+                    r = 'CLIENT'
+                }
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('role', r)
+                if (role === "ROLE_COACH") {
+                    window.location.href = "http://localhost:3000/CoachAccountPage"
+                } else {
+                    window.location.href = "http://localhost:3000/PersonAccountPage"
+                }
+            }
+        })
+    }
 
     render() {
         return (
@@ -143,7 +173,7 @@ class RegisterPage extends Component {
                             <h4>Дата рождения</h4>
                             <input value={this.state.birthday} name="birthday" className="input-field"
                                    onChange={this.handleInput}
-                                   type="text" placeholder="Введите дату рождения..."/>
+                                   type="date" placeholder="Введите дату рождения..."/>
                         </div>
                         <div className="form-row">
                             <h4>Пол</h4>
@@ -160,7 +190,7 @@ class RegisterPage extends Component {
                         </div>
                         <div className="form-row">
                             <h4>Номер телефона</h4>
-                            <input value={this.state.phone} name="phone" className="input-field"
+                            <input value={this.state.phoneNumber} name="phone" className="input-field"
                                    onChange={this.handleInput}
                                    type="text" placeholder="Введите телефон..."/>
                         </div>
@@ -172,26 +202,26 @@ class RegisterPage extends Component {
                         </div>
                         <div className="form-row">
                             <h4>Придумайте пароль</h4>
-                            <input value={this.state.email} name="password" className="input-field"
+                            <input value={this.state.password} name="password" className="input-field"
                                    onChange={this.handleInput}
                                    type="password" placeholder="Введите пароль..."/>
                         </div>
                         <div className={this.state.coach ? "form-row" : "form-row nonactive"}>
                             <h4>Виды спорта</h4>
-                           <Multiselect className="input-field-select" options={this.state.options}
-                                        selectedValues={this.state.selectedValue}
-                                        onSelect={this.onSelect}
-                                        onRemove={this.onRemove}
-                                        displayValue="name"/>
+                            <Multiselect className="input-field-select" options={this.state.options}
+                                         selectedValues={this.state.selectedValue}
+                                         onSelect={this.onSelect}
+                                         onRemove={this.onRemove}
+                                         displayValue="name"/>
                         </div>
-                        {this.state.selectedListItem.map((item, idx) =>
+                        { this.state.coach === true &&
                             <div className="form-row">
-                                <h4>{item.name}</h4>
-                                <input value={this.state.email} name={item.name} className="input-field"
-                                       onChange={this.handleInputSport}
+                                <h4>Цены на спорт</h4>
+                                <input value={this.state.prices} name="prices" className="input-field"
+                                       onChange={this.handleInput}
                                        type="text" placeholder="Введите цену..."/>
                             </div>
-                        )}
+                        }
                         <div className={this.state.coach ? "form-row" : "form-row nonactive"}>
                             <h4>Укажите достижения</h4>
                             <input value={this.state.email} name="achieve" className="input-field big"
@@ -205,7 +235,7 @@ class RegisterPage extends Component {
                                    type="text" placeholder="Укажите информацию..."/>
                         </div>
                         <div className="submit">
-                            <Button>Создать</Button>
+                            <Button onClick={this.sendData}>Создать</Button>
                         </div>
                     </div>
                 </div>
@@ -213,6 +243,7 @@ class RegisterPage extends Component {
         );
     }
 }
+
 //TODO не понял как понять что регистрация прошла успешно, когда ввожу в поле email авто заполняются другие поля
 export default RegisterPage
 

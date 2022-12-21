@@ -10,10 +10,12 @@ class ClientInfoPage extends Component {
         this.state = {
             person: {},
             date: new Date(),
-            recomText: ''
+            recomText: '',
+            idGroupToAdd: 0
         }
         this.handleInput = this.handleInput.bind(this);
         this.writeSubmit = this.writeSubmit.bind(this);
+        this.addPeople = this.addPeople.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
     }
 
@@ -36,6 +38,8 @@ class ClientInfoPage extends Component {
             case 'recom':
                 this.setState({recom: e.target.value})
                 break
+            case 'id-group':
+                this.setState({idGroupToAdd: e.target.value})
         }
     }
 
@@ -51,8 +55,42 @@ class ClientInfoPage extends Component {
         })
     }
 
-    sendMessage() {
+    addPeople() {
+        axios.post(`http://localhost:9090/groups/${this.state.idGroupToAdd}`, {}, {
+            params: {
+                personId:  localStorage.getItem("coachPersonInfoPageId")
+            },
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            }
+        })
+    }
 
+    sendMessage() {
+        axios.get("http://localhost:9090/groupchat/check", {
+            params: {
+                personId: localStorage.getItem("coachPersonInfoPageId")
+            }, headers : {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then(res => {
+            if (res.data.check === false) {
+                axios.post("http://localhost:9090/groupchat", {}, {
+                    headers : {
+                        Authorization: 'Bearer ' + localStorage.getItem("token")
+                    }
+                }).then(res2 => {
+                    axios.post(`http://localhost:9090/groupchat/add/${res2.data.chat}`, {}, {
+                        params: {
+                            peopleToAdd: localStorage.getItem("coachPersonInfoPageId")
+                        }, headers : {
+                            Authorization: 'Bearer ' + localStorage.getItem("token")
+                        }
+                    })
+                })
+            }
+        })
+        window.location.href = "http://localhost:3000/MessagesPage"
     }
 
     render() {
@@ -84,9 +122,9 @@ class ClientInfoPage extends Component {
                     <Button onClick={this.writeSubmit}>Отправить</Button>
                 </div>
                 <div className="add-to-group">
-                    <input value={this.state.recom} onChange={this.handleInput} name="recom" className="info-page-input"
+                    <input value={this.state.idGroupToAdd} onChange={this.handleInput} name="id-group" className="info-page-input"
                            type="text" placeholder="Введите id группы..."/>
-                    <Button onClick={this.writeSubmit}>Добавить</Button>
+                    <Button onClick={this.addPeople}>Добавить в группу</Button>
                 </div>
             </div>
         );

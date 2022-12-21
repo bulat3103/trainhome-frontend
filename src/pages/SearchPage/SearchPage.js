@@ -120,7 +120,10 @@ class SearchPage extends Component {
                                 <img src={logo}/>
                             </div>
                             <div className="search-person-info">
-                                <h3>{coach.personDTO.name}</h3>
+                                <h3 onClick={() => {
+                                    localStorage.setItem("coachInfoPageId", coach.id);
+                                    window.location.href = "http://localhost:3000/CoachInfo"
+                                }}>{coach.personDTO.name}</h3>
                                 <div className="search-person-info-field">
                                     <h3 className="search-person-info-field-name">Сфера спорта</h3>
                                     <h3 className="search-person-info-field-value">{coach.sportSphereName}</h3>

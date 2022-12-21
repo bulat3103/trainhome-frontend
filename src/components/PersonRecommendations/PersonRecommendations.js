@@ -58,7 +58,7 @@ class PersonRecommendations extends Component {
         this.props.onChange(date);
         axios.get('http://localhost:9090/calendar/list', {
             params: {
-                date: this.state.selectedDate
+                date: date.toLocaleDateString()
             },
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem("token")

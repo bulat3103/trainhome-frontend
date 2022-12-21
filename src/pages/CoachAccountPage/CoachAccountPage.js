@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./CoachAccountPage.css";
 import {Button} from "../../components/Button";
-import Calendar from "../../components/Calendar/Calendar";
 import logo from "../../img/Icon.png";
 import axios from "axios";
 import TrainingList from "../../components/TrainingList/TrainingList";
@@ -18,12 +17,16 @@ class CoachAccountPage extends Component {
             groups: [],
             transactions: [],
             value: "Йога",
-            groupPeople: []
+            groupPeople: [],
+            trainLink: '',
+            trainDate: '',
+            trainGroup: 0
         }
         this.handleInput = this.handleInput.bind(this);
         this.handleClickMoney = this.handleClickMoney.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.submitCreateTrain = this.submitCreateTrain.bind(this);
+        this.createNewTrain = this.createNewTrain.bind(this);
     }
 
     componentDidMount() {
@@ -56,7 +59,11 @@ class CoachAccountPage extends Component {
     }
 
     handleClickMoney() {
-        axios.post("http://localhost:9090/transaction/pay", {date: new Date(), coachId: this.props.id, money: -1 * this.state.currentMoney}, {
+        axios.post("http://localhost:9090/transaction/pay", {
+            date: new Date(),
+            coachId: this.props.id,
+            money: -1 * this.state.currentMoney
+        }, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem("token")
             }
@@ -76,6 +83,15 @@ class CoachAccountPage extends Component {
                 break;
             case 'trains':
                 this.setState({createTrainCountTrains: e.target.value});
+                break;
+            case 'trainLink':
+                this.setState({trainLink: e.target.value});
+                break;
+            case 'trainDate':
+                this.setState({trainDate: e.target.value});
+                break;
+            case 'trainGroup':
+                this.setState({trainGroup: e.target.value});
                 break;
         }
     }
@@ -97,17 +113,42 @@ class CoachAccountPage extends Component {
         })
     }
 
+    createNewTrain() {
+        axios.post("http://localhost:9090/trains", {
+            trainingDate: this.state.trainDate,
+            link: this.state.trainLink,
+            createGroupId: this.state.trainGroup
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            }
+        })
+    }
+
     render() {
         return (
             <div>
                 <Navbar/>
                 <div className="coach-account-content">
                     <div className="left-column">
-                        <img src={logo}/>
+
                     </div>
                     <div className="right-column">
-                        <div className="coach-first-row">
-                            <Calendar/>
+                        <div className="row">
+                            <div className="create-form">
+                                <h3 className="block-title">Создать тренировку</h3>
+                                <h3 className="input-train-title">Введите ссылку</h3>
+                                <input value={this.state.trainLink} onChange={this.handleInput} name="trainLink"
+                                       className="input-train"
+                                       type="text" placeholder="Введите ссылку..."/>
+                                <h3 className="input-train-title">Выберите дату</h3>
+                                <input value={this.state.trainDate} onChange={this.handleInput} name="trainDate" className="input-train"
+                                       type="datetime-local" placeholder="Выберите дату..."/>
+                                <h3 className="input-train-title">Введите id группы</h3>
+                                <input value={this.state.trainGroup} onChange={this.handleInput} name="trainGroup" className="input-train"
+                                       type="text" placeholder="Введите id группы..."/>
+                                <Button onClick={this.createNewTrain}>Создать</Button>
+                            </div>
                         </div>
                         <div className="coach-second-row">
                             <div className="money-history">
@@ -124,7 +165,7 @@ class CoachAccountPage extends Component {
                                     {this.state.transactions.map((tran, idx) =>
                                         <tr>
                                             <td>{tran.date}</td>
-                                            <td>{tran.personDTO.id}</td>
+                                            <td>{tran.personDTO.name}</td>
                                             <td>{tran.money}</td>
                                         </tr>
                                     )}
@@ -157,7 +198,8 @@ class CoachAccountPage extends Component {
                                             <td onClick={() => axios.get(`http://localhost:9090/groups/${group.id}`, {
                                                 headers: {
                                                     Authorization: 'Bearer ' + localStorage.getItem('token')
-                                                }})
+                                                }
+                                            })
                                                 .then(res => this.setState({groupPeople: res.data.persons}))}>
                                                 {group.id}
                                             </td>
@@ -176,17 +218,14 @@ class CoachAccountPage extends Component {
                                         window.location.href = "http://localhost:3000/Info"
                                     }}>{people.name}</p>
                                 )}
-                                <div className="coach-button">
-                                    <Button buttonStyle="btn--red"
-                                            buttonSize="btn--wide">Удалить группу</Button>
-                                </div>
                             </div>
                         </div>
                         <div className="coach-forth-row">
                             <form className="create-train-form" onSubmit={this.submitCreateTrain}>
                                 <h3 className="block-title">Создать группу</h3>
                                 <h3 className="input-train-title">Введите название</h3>
-                                <input value={this.state.createTrainName} onChange={this.handleInput} name="name" className="input-train"
+                                <input value={this.state.createTrainName} onChange={this.handleInput} name="name"
+                                       className="input-train"
                                        type="text" placeholder="Введите название..."/>
                                 <h3 className="input-train-title">Выберите вид спорта</h3>
                                 <select value={this.state.value} onChange={this.handleSelectChange}>
@@ -206,10 +245,12 @@ class CoachAccountPage extends Component {
                                     <option value="Каларипаятту">Каларипаятту</option>
                                 </select>
                                 <h3 className="input-train-title">Введите кол-во людей</h3>
-                                <input value={this.state.createTrainCountPeople} onChange={this.handleInput} name="people" className="input-train"
+                                <input value={this.state.createTrainCountPeople} onChange={this.handleInput}
+                                       name="people" className="input-train"
                                        type="text" placeholder="Введите кол-во людей..."/>
                                 <h3 className="input-train-title">Введите кол-во тренировок</h3>
-                                <input value={this.state.createTrainCountTrains} onChange={this.handleInput} name="trains" className="input-train"
+                                <input value={this.state.createTrainCountTrains} onChange={this.handleInput}
+                                       name="trains" className="input-train"
                                        type="text" placeholder="Введите кол-во тренировок..."/>
                                 <input value="Создать" type="submit" className="auth-button"/>
                             </form>

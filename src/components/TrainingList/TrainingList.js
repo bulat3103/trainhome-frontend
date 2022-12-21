@@ -13,7 +13,7 @@ class TrainingList extends Component {
     componentDidMount() {
         axios.get("http://localhost:9090/trains/list", {
             headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMWExM2FiNWJAZ21haWwuY29tIiwiZXhwIjoxNjcyNjkzMjAwfQ.mnmCTnvf6h21B-SAAq4e-LWIg_3M58yvDZBOrBjV93IfFqf6czunj9tQJXm2ZQMBXKtDZT3dU5yEHjquAq2f4Q'
+                Authorization: 'Bearer ' + localStorage.getItem("token")
             }
         })
             .then(res => {
