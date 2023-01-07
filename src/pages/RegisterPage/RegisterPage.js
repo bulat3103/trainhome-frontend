@@ -112,7 +112,10 @@ class RegisterPage extends Component {
         } else {
             role = 'ROLE_CLIENT'
         }
-        console.log()
+        let sportPrices = []
+        for (let i = 0; i < this.state.prices.length; i++) {
+            sportPrices.push({sportName: this.state.selectedListItem[i], price: this.state.prices[i]})
+        }
         axios.post("http://localhost:9090/auth/register", {
             password: this.state.password,
             name: this.state.name,
@@ -123,7 +126,7 @@ class RegisterPage extends Component {
             sex: this.state.sex,
             achievements: this.state.achieve,
             info: this.state.info,
-            prices: this.state.prices.split(',')
+            listPrices: sportPrices
         }, {
             params: {
                 role: role
