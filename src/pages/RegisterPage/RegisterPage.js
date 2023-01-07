@@ -113,8 +113,9 @@ class RegisterPage extends Component {
             role = 'ROLE_CLIENT'
         }
         let sportPrices = []
-        for (let i = 0; i < this.state.prices.length; i++) {
-            sportPrices.push({sportName: this.state.selectedListItem[i], price: this.state.prices[i]})
+        let listPrice = this.state.prices.split(",")
+        for (let i = 0; i < listPrice.length; i++) {
+            sportPrices.push({sportName: this.state.selectedListItem[i].name, price: listPrice[i]})
         }
         axios.post("http://localhost:9090/auth/register", {
             password: this.state.password,
@@ -227,13 +228,13 @@ class RegisterPage extends Component {
                         }
                         <div className={this.state.coach ? "form-row" : "form-row nonactive"}>
                             <h4>Укажите достижения</h4>
-                            <input value={this.state.email} name="achieve" className="input-field big"
+                            <input value={this.state.achieve} name="achieve" className="input-field big"
                                    onChange={this.handleInput}
                                    type="text" placeholder="Укажите достижения..."/>
                         </div>
                         <div className={this.state.coach ? "form-row" : "form-row nonactive"}>
                             <h4>Укажите дополнительную информацию о себе</h4>
-                            <input value={this.state.email} name="info" className="input-field big"
+                            <input value={this.state.info} name="info" className="input-field big"
                                    onChange={this.handleInput}
                                    type="text" placeholder="Укажите информацию..."/>
                         </div>
